@@ -4,7 +4,11 @@ namespace MemoryManagement
 {
 	SmallObjectAllocator SmallObject::smallAllocator;
 
-	void* SmallObject::operator new(std::size_t size) 
+	SmallObject::SmallObject()
+	{
+	}
+
+	void* SmallObject::operator new(std::size_t size)
 	{
 		return smallAllocator.Allocate(size);
 	}

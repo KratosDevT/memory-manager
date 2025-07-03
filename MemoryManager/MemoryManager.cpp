@@ -5,11 +5,7 @@
 
 int main()
 {
-	TestObject* obj = new TestObject();
-  
-	obj->TestMethod();
-	
-	delete obj;
+
 }
 
 

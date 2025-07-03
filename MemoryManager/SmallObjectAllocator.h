@@ -1,5 +1,7 @@
 #pragma once
 #include <cstddef>
+#include <vector>
+#include "FixedAllocator.h"
 
 namespace MemoryManagement
 {
@@ -11,8 +13,22 @@ namespace MemoryManagement
 
 	public:
 		SmallObjectAllocator();
-		void* Allocate(std::size_t byteSize);
-		void Deallocate(void* p, std::size_t byteSize);
+		SmallObjectAllocator(std::size_t chunkSize, std::size_t maxObjectSize);
+		void* Allocate(std::size_t numBytes);
+		void Deallocate(void* p, std::size_t numBytes);
+	
+	private:
+
+		SmallObjectAllocator(const SmallObjectAllocator&);
+		SmallObjectAllocator& operator=(const SmallObjectAllocator&);
+
+
+		typedef std::vector<FixedAllocator> Pool;
+		Pool pool_;
+		FixedAllocator* pLastAlloc_;
+		FixedAllocator* pLastDealloc_;
+		std::size_t chunkSize_;
+		std::size_t maxObjectSize_;
 	};
 
 }

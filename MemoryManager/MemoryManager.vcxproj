@@ -123,6 +123,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Chunk.cpp" />
+    <ClCompile Include="FixedAllocator.cpp" />
     <ClCompile Include="MemoryManager.cpp" />
     <ClCompile Include="SmallObject.cpp" />
     <ClCompile Include="SmallObjectAllocator.cpp" />
