@@ -1,12 +1,18 @@
-// MemoryManager.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
 
 #include <iostream>
 
+#include "TestObject.h"
+
 int main()
 {
-
-
-    std::cout << "Hello World!\n";
+	TestObject* obj = new TestObject();
+  
+	obj->TestMethod();
+	
+	delete obj;
 }
+
+
+
+
 
