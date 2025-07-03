@@ -6,9 +6,13 @@ TestObject::TestObject(int _a, int _b) :a{_a }, b{ _b } {}
 
 void TestObject::TestMethod()
 {
-	std::cout << "called TestMethod" << std::endl;
+	std::cout << "TestObject " << "[ a = " << a << ", b = " << b<< " ]";
+	std::cout << std::endl;
 }
 
 TestObject::~TestObject()
 {
+
 }
+
+
