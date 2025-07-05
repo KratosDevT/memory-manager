@@ -15,11 +15,6 @@ namespace MemoryManagement
         , defaultChunkSize_(defaultChunkSize), maxObjectSize_(maxObjectSize)
     {}
 
-    SmallObjectAllocator& SmallObjectAllocator::operator=(const SmallObjectAllocator& all)
-    {
-
-    }
-
     namespace
     { 
         struct CompareFixedAllocatorSize

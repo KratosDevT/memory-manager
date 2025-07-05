@@ -17,7 +17,7 @@ void TestWithSmallObject(int numIterazioni)
 	}
 	auto end = std::chrono::high_resolution_clock::now();
 	auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-	std::cout << "Tempo totale 1BILLION allocazioni e deallocazioni con small object: " << duration.count() / 1000.0 << "seconds" << std::endl;
+	std::cout << "Tempo totale di " << numIterazioni << " alloc+dealloc SMALL OBJECT ALLOCATOR: " << duration.count() / 1000.000 << " secondi" << std::endl;
 }
 
 void TestWithoutSmallObject(int numIterazioni) {
@@ -30,11 +30,12 @@ void TestWithoutSmallObject(int numIterazioni) {
 	}
 	auto end = std::chrono::high_resolution_clock::now();
 	auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-	std::cout << "Tempo totale 1BILLION allocazioni e deallocazioni con standard object: " << duration.count() / 1000.0 << "seconds" << std::endl;
+	std::cout << "Tempo totale di "<< numIterazioni <<" alloc+dealloc con allocatore di sistema : " << duration.count() / 1000.000 << " secondi" << std::endl;
 }
+
 int main()
 {
-	int numIterazioni = 1000 * 1000 * 1000;
+	int numIterazioni = 1000 * 1000 * 100;
 	TestWithSmallObject(numIterazioni);
 	TestWithoutSmallObject(numIterazioni);
 }

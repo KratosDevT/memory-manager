@@ -21,7 +21,7 @@ namespace MemoryManagement
 	private:
 
 		SmallObjectAllocator(const SmallObjectAllocator&);
-		SmallObjectAllocator& operator=(const SmallObjectAllocator&);
+		//SmallObjectAllocator& operator=(const SmallObjectAllocator&);
 
 		typedef std::vector<FixedAllocator> Pool;
 		Pool pool_;
