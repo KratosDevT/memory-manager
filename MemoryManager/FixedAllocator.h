@@ -18,7 +18,6 @@ namespace MemoryManagement
 	// FixedAllocator creates a new Chunk and appends it to the array. Then satisfy the request.
 	class FixedAllocator 
 	{
-		
 
 	private:
 		std::size_t  blockSize_;

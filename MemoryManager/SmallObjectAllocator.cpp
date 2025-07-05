@@ -9,16 +9,19 @@ namespace MemoryManagement
     SmallObjectAllocator::SmallObjectAllocator(){}
 
     SmallObjectAllocator::SmallObjectAllocator(
-        std::size_t chunkSize,
+        std::size_t defaultChunkSize,
         std::size_t maxObjectSize)
         : pLastAlloc_(0), pLastDealloc_(0)
-        , chunkSize_(chunkSize), maxObjectSize_(maxObjectSize)
+        , defaultChunkSize_(defaultChunkSize), maxObjectSize_(maxObjectSize)
+    {}
+
+    SmallObjectAllocator& SmallObjectAllocator::operator=(const SmallObjectAllocator& all)
     {
+
     }
 
-    namespace { // anoymous 
-
-        // See LWG DR #270
+    namespace
+    { 
         struct CompareFixedAllocatorSize
             : std::binary_function<const FixedAllocator&, std::size_t, bool>
         {
@@ -27,19 +30,20 @@ namespace MemoryManagement
                 return x.BlockSize() < numBytes;
             }
         };
-
     }
 
     void* SmallObjectAllocator::Allocate(std::size_t numBytes)
     {
-        if (numBytes > maxObjectSize_) return malloc(numBytes); // or operator new ?
+        if (numBytes > maxObjectSize_) return malloc(numBytes); 
 
         if (pLastAlloc_ && pLastAlloc_->BlockSize() == numBytes)
         {
             return pLastAlloc_->Allocate();
         }
+        
         Pool::iterator i = std::lower_bound(pool_.begin(), pool_.end(), numBytes,
             CompareFixedAllocatorSize());
+        
         if (i == pool_.end() || i->BlockSize() != numBytes)
         {
             i = pool_.insert(i, FixedAllocator(numBytes));
@@ -58,11 +62,15 @@ namespace MemoryManagement
             pLastDealloc_->Deallocate(p);
             return;
         }
+      
         Pool::iterator i = std::lower_bound(pool_.begin(), pool_.end(), numBytes,
             CompareFixedAllocatorSize());
+       
         assert(i != pool_.end());
         assert(i->BlockSize() == numBytes);
         pLastDealloc_ = &*i;
         pLastDealloc_->Deallocate(p);
     }
+
+  
 }

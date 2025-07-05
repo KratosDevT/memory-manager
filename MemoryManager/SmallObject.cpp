@@ -2,11 +2,9 @@
 
 namespace MemoryManagement 
 {
-	SmallObjectAllocator SmallObject::smallAllocator;
+	SmallObject::SmallObject() {}
 
-	SmallObject::SmallObject()
-	{
-	}
+	SmallObjectAllocator SmallObject::smallAllocator(DEFAULT_CHUNK_SIZE, MAX_SMALL_OBJECT_SIZE);
 
 	void* SmallObject::operator new(std::size_t size)
 	{

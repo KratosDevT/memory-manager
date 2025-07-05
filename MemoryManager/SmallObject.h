@@ -16,13 +16,12 @@ namespace MemoryManagement
     public:
         static SmallObjectAllocator smallAllocator;
         SmallObject();
-        
+
     public:
         static void* operator new(std::size_t size); // Static storage duration means that the variable resides in the same place in memory through the lifetime of the program.
         static void operator delete(void* p, std::size_t size);
         virtual ~SmallObject() {};
     };
-    
 }
 
 #endif // SMALLOBJ_INC_

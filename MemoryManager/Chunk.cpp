@@ -9,7 +9,7 @@ namespace MemoryManagement
 		assert(blockSize > 0);
 		assert(blocks > 0);
 
-		// Overflow check
+		// Overflow check on multiply
 		assert((blockSize * blocks) / blockSize == blocks);
 
 		pData_ = static_cast<unsigned char*>(malloc(blockSize * blocks)); //better use delete and new?
