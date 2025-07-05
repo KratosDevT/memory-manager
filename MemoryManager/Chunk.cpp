@@ -39,8 +39,7 @@ namespace MemoryManagement
 
 	void Chunk::Release()
 	{
-		free(pData_); //better use delete and new?
-		//delete[] pData_;
+		free(pData_);
 	}
 
 	// Allocates a block from a chunk

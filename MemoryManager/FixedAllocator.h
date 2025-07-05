@@ -3,10 +3,6 @@
 #include <vector>
 #include "Chunk.h"
 
-#ifndef DEFAULT_CHUNK_SIZE
-#define DEFAULT_CHUNK_SIZE 4096
-#endif
-
 #ifndef MAX_SMALL_OBJECT_SIZE
 #define MAX_SMALL_OBJECT_SIZE 64
 #endif

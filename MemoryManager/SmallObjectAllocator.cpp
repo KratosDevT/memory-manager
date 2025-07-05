@@ -6,16 +6,12 @@
 
 namespace MemoryManagement
 {
-    SmallObjectAllocator::SmallObjectAllocator(){}
-
-    SmallObjectAllocator::SmallObjectAllocator(
-        std::size_t defaultChunkSize,
-        std::size_t maxObjectSize)
+    SmallObjectAllocator::SmallObjectAllocator(std::size_t maxObjectSize)
         : pLastAlloc_(0), pLastDealloc_(0)
-        , defaultChunkSize_(defaultChunkSize), maxObjectSize_(maxObjectSize)
+        , maxObjectSize_(maxObjectSize)
     {}
 
-    namespace
+    namespace Internal
     { 
         struct CompareFixedAllocatorSize
             : std::binary_function<const FixedAllocator&, std::size_t, bool>
@@ -37,7 +33,7 @@ namespace MemoryManagement
         }
         
         Pool::iterator i = std::lower_bound(pool_.begin(), pool_.end(), numBytes,
-            CompareFixedAllocatorSize());
+            Internal::CompareFixedAllocatorSize());
         
         if (i == pool_.end() || i->BlockSize() != numBytes)
         {
@@ -50,7 +46,7 @@ namespace MemoryManagement
 
     void SmallObjectAllocator::Deallocate(void* p, std::size_t numBytes)
     {
-        if (numBytes > maxObjectSize_) return free(p);//or operator delete?
+        if (numBytes > maxObjectSize_) return free(p);
 
         if (pLastDealloc_ && pLastDealloc_->BlockSize() == numBytes)
         {
@@ -59,13 +55,11 @@ namespace MemoryManagement
         }
       
         Pool::iterator i = std::lower_bound(pool_.begin(), pool_.end(), numBytes,
-            CompareFixedAllocatorSize());
+            Internal::CompareFixedAllocatorSize());
        
         assert(i != pool_.end());
         assert(i->BlockSize() == numBytes);
         pLastDealloc_ = &*i;
         pLastDealloc_->Deallocate(p);
     }
-
-  
 }

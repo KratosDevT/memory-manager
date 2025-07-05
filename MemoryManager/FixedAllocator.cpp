@@ -13,9 +13,7 @@ namespace MemoryManagement
 
 		prev_ = next_ = this;
 
-		std::size_t numBlocks = DEFAULT_CHUNK_SIZE / blockSize;
-		if (numBlocks > UCHAR_MAX) numBlocks = UCHAR_MAX;
-		else if (numBlocks == 0) numBlocks = 8 * blockSize;//???
+		std::size_t numBlocks = UCHAR_MAX; //255 but could be less
 
 		numBlocks_ = static_cast<unsigned char>(numBlocks);
 		assert(numBlocks_ == numBlocks);

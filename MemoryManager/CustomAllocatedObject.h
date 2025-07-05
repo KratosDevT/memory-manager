@@ -7,6 +7,8 @@ class CustomAllocatedObject : public MemoryManagement::SmallObject
 public:
 	int a;
 	int b;
+
+private:
 	int c;
 
 public:
@@ -14,4 +16,6 @@ public:
 	CustomAllocatedObject(int _a, int _b, int _c);
 	void TestMethod();
 	~CustomAllocatedObject() override;
+
+	int GetC() { return c; }
 };

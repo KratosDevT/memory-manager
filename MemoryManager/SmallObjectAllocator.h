@@ -12,22 +12,16 @@ namespace MemoryManagement
 	{
 
 	public:
-		SmallObjectAllocator();
-		SmallObjectAllocator(std::size_t defaultChunkSize, std::size_t maxObjectSize);
-
+		SmallObjectAllocator(std::size_t maxObjectSize);
 		void* Allocate(std::size_t numBytes);
 		void Deallocate(void* p, std::size_t numBytes);
 	
 	private:
 
-		SmallObjectAllocator(const SmallObjectAllocator&);
-		//SmallObjectAllocator& operator=(const SmallObjectAllocator&);
-
 		typedef std::vector<FixedAllocator> Pool;
 		Pool pool_;
 		FixedAllocator* pLastAlloc_;
 		FixedAllocator* pLastDealloc_;
-		std::size_t defaultChunkSize_;
 		std::size_t maxObjectSize_;
 	};
 
