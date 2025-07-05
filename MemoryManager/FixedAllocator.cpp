@@ -103,7 +103,11 @@ namespace MemoryManagement
 		assert(allocChunk_ != 0);
 		assert(allocChunk_->blocksAvailable_ > 0);
 
-		return allocChunk_->Allocate(blockSize_);
+		void* result = allocChunk_->Allocate(blockSize_);
+		// AGGIUNTA CRITICA: Memorizza il mapping pointer -> chunk
+		//ptrToChunk_[result] = allocChunk_;
+
+		return result;
 	}
 
 	void FixedAllocator::Deallocate(void* p)
@@ -116,6 +120,15 @@ namespace MemoryManagement
 		assert(deallocChunk_);
 
 		DoDeallocate(p);
+
+		//// SOSTITUZIONE COMPLETA: Usa hash table invece di VicinityFind
+		//auto it = ptrToChunk_.find(p);
+		//assert(it != ptrToChunk_.end());  // Il puntatore deve esistere
+
+		//deallocChunk_ = it->second;
+		//ptrToChunk_.erase(it);  // Rimuovi dalla hash table
+
+		//DoDeallocate(p);
 	}
 
 	Chunk* FixedAllocator::VicinityFind(void* p)

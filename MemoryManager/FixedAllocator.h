@@ -3,9 +3,12 @@
 #include <vector>
 #include "Chunk.h"
 
+
 #ifndef MAX_SMALL_OBJECT_SIZE
 #define MAX_SMALL_OBJECT_SIZE 64
 #endif
+
+#include <unordered_map>
 
 namespace MemoryManagement
 {
@@ -22,6 +25,9 @@ namespace MemoryManagement
 		Chunks chunks_;
 		Chunk* allocChunk_;
 		Chunk* deallocChunk_;
+
+		//optimization deallocation
+		//std::unordered_map<void*, Chunk*> ptrToChunk_;
 
 		// For ensuring proper copy semantics
 		mutable const FixedAllocator* prev_;
